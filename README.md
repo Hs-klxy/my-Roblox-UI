@@ -24,3 +24,6 @@ loadstring(game:httpget("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/
 如果可以的话也来帮忙开发一下 谢谢😭
 （本人不会用github lol）
 就这样吧 祝你使用愉快😋
+## ··· 其他
+有事的话加我roblox大号：Hs_klxy123
+（【后期】CNIHs_klxy123：如果有人用我的脚本干涉正常游戏其他正常人体验的话直接举报他就行了 不要怪我身上😭😭😭我还在忙于学业不希望被别人打搅）
