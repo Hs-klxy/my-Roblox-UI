@@ -121,6 +121,20 @@ Tab2:AddButton({
     end    
 })
 
+
+Tab2:AddButton({
+    Name = "CMD-X（手机不可用）",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载CMD-X脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source",true))()
+    end    
+})
+
 -- Tab3按钮
 Tab3:AddButton({
     Name = "jalon的后门注入器",
