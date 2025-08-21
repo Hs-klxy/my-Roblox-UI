@@ -81,6 +81,32 @@ Tab1:AddButton({
     end    
 })
 
+Tab1:AddButton({
+    Name = "Npc操控",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载NPC操控脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty38.lua"))()
+    end    
+})
+
+Tab1:AddButton({
+    Name = "R15动画",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载R15动画脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RENBex6969/AnimationScripts/refs/heads/main/FE_R15_Animation_Gui_by_illremember.lua"))()
+    end    
+})
+
 -- Tab2按钮
 Tab2:AddButton({
     Name = "Systembroken",
