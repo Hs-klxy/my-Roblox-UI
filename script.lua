@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 
 ver = "1.2-20250822"
-ver_id = "Beta"
+ver_id = "Developer Beta 2"
 
 -- 启动通知
 OrionLib:MakeNotification({
