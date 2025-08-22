@@ -14,7 +14,7 @@
 ## 使用
 挺简单的直接用就ok：
 ```lua
-loadstring(game:httpget("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/script.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/script.lua"))()
 ```
 ## ❗ 注意
 **执行器等级太低的话（如Solara、Xeno）有很多FE脚本就跑不了！**
