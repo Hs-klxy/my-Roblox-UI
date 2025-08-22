@@ -1,5 +1,8 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 
+ver = "1.2-20250822"
+ver_id = "Beta"
+
 -- 启动通知
 OrionLib:MakeNotification({
     Name = "启动提示",
@@ -10,7 +13,7 @@ OrionLib:MakeNotification({
 
 -- 创建窗口
 local Window = OrionLib:MakeWindow({
-    Name = "CNIHs_klxy123的第一个脚本 (缝合 第一版)", 
+    Name = "CNIHs_klxy123的第一个脚本 (缝合 第二版)", 
     HidePremium = false, 
     SaveConfig = true, 
     ConfigFolder = "测试中🛠"
@@ -41,6 +44,17 @@ local Tab4 = Window:MakeTab({
     PremiumOnly = false
 })
 
+local TabInfo = Window:MakeTab({
+    Name = "关于",
+    Icon = "rbxassetid://102420960378431",
+    PremiumOnly = false
+})
+
+-- TabInfo按钮
+TabInfo:AddParagraph("发起者 CNIHs_klxy123")
+TabInfo:AddLabel("只是一个自制免费的缝合脚本而已")
+TabInfo:AddLabel("版本: " .. ver .. " " .. ver_id)
+TabInfo:AddLabel("不要当skid😡")
 -- Tab1按钮
 Tab1:AddButton({
     Name = "动作飞行（R6）",
@@ -214,8 +228,523 @@ Tab3:AddButton({
     end    
 })
 
--- Tab4: Genesis FE (目前为空，可以添加内容)
+-- Tab4: Genesis FE 
 
+Tab4:AddButton({
+    Name = "AK-47",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载AK-47脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = false
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/AK-47'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "封禁之锤",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载封禁之锤脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Ban%20Hammer'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "驱逐者",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载驱逐者脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Banisher"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "亲（氢）爱（癌）的姐姐（手枪战神）",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载亲爱的姐姐（手枪战神）脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Dearsister"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Gale fighter（不知道怎么翻译）",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Gale fighter脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Gale%20Fighter"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "没救的人",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载没救的人脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Goner"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "罪恶龙",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载罪恶龙脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        transparent = true
+        effects = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Sin%20Dragon'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "好蜀黍坏蜀黍",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载好蜀黍坏蜀黍脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Good%20Cop%20Bad%20Cop"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Karambit",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Karambit脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Karambit"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Krystal Dance",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Krystal Dance脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = true
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Krystal%20Dance"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "闪电加农大炮",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载闪电加农大炮脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        lightmode = false
+        effects = true
+        timemultiplier = 1
+        walkspeedmultiplier = 1
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Lightning%20Cannon"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "roblox远古时期的剑",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Linked sword脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        DisableFlingHealthBar = false
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Linked%20Sword"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Minigun",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Minigun脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Minigun"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "摩托车",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载摩托车脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Motorcycle"))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "猫娘",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载猫娘脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        DisableFlingHealthBar = false
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Neko'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "海王星 V",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载海王星 V脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Neptunian%20V'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "手枪",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载手枪脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Pistol'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "傀儡大师",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载傀儡大师脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Puppet%20Master'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "种族骑士",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载种族骑士脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Sadist%20Genocider'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "狙击手",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载狙击手脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Sniper'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Star动画",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Star动画脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        DisableFX = false
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Star%20Glitcher'))()
+    end    
+})
+
+Tab4:AddButton({
+    Name = "Studio里面的人偶Dummy",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载人偶脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        permadeath = true
+        fling = true
+        allowshiftlock = true
+        ctrltp = true
+        placeholders = true
+        clickfling = false
+        highlightflingtargets = true
+        discharscripts = true
+        flingchangestate = true
+        hidedeatheffect = true
+        respawntp = 3
+        breakjointsmethod = 1
+        simrad = true
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GenesisFE/Genesis/main/Obfuscations/Studio%20Dummy'))()
+    end    
+})
 
 -- 初始化OrionLib
 OrionLib:Init()
