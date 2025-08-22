@@ -1,4 +1,4 @@
-# CNIHs_klxy123自制的简单的脚本中心
+# CNIHs_klxy123做的简陋脚本中心
 
 在家里闲得无聊自己做的一个脚本中心，这样我重新安装执行器的时候就不要瞎忙活了，自己拿去用吧没事
 
@@ -12,7 +12,7 @@
 
 （额 毕竟快开学了 我尽力看看，我还有一些考试😥）
 ## 使用
-挺简单的直接在执行器里面直接httpget就ok：
+挺简单的直接在执行器里面直接用就ok：
 ```lua
 loadstring(game:httpget("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/script.lua"))()
 ```
