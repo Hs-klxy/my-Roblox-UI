@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 
 ver = "1.2-20250822"
-ver_id = "Developer Beta 2"
+ver_id = "Beta"
 
 -- 启动通知
 OrionLib:MakeNotification({
@@ -189,6 +189,9 @@ Tab2:AddButton({
 })
 
 -- Tab3按钮
+
+Tab3:AddParagraph("此类脚本仅可在后门服务器使用，require脚本需要填入自己的用户名")
+
 Tab3:AddButton({
     Name = "jalon的后门注入器",
     Callback = function()
@@ -212,6 +215,58 @@ Tab3:AddButton({
             Time = 5
         })
         loadstring(game:HttpGet("https://raw.githubusercontent.com/dirsks/Backdoor-Game-V2/refs/heads/main/LALOL-Hub-Backdoor/Loader.luau"))()
+    end    
+})
+
+Tab3:AddButton({
+    Name = "复制c00lkidd require gui",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "警告",
+            Content = "谨慎使用require gui！",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+        setclipboard("require(14125553864):Fire('DeBug_UserName', 'c00lkidd')")
+    end    
+})
+
+Tab3:AddButton({
+    Name = "复制topkek 3.0",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "警告",
+            Content = "谨慎使用require gui！",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+        setclipboard("require(2609384717).load('DeBug_UserName')")
+    end    
+})
+
+Tab3:AddButton({
+    Name = "复制topkek 5.0",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "警告",
+            Content = "谨慎使用require gui！",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+        setclipboard("require(0x342D5F0DA)('DeBug_UserName')")
+    end    
+})
+
+Tab3:AddButton({
+    Name = "复制ExSer",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "警告",
+            Content = "谨慎使用require gui！",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+        setclipboard("require(10868847330):pls('DeBug_UserName')")
     end    
 })
 
@@ -242,6 +297,8 @@ Tab3:AddButton({
 })
 
 -- Tab4: Genesis FE 
+
+Tab4:AddParagraph("此类Reanimation动画脚本需穿戴相关饰品，饰品必须在体验“foundation”购买才有用")
 
 Tab4:AddButton({
     Name = "AK-47",
