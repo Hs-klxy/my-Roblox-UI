@@ -44,17 +44,30 @@ local Tab4 = Window:MakeTab({
     PremiumOnly = false
 })
 
+local TabGames = Window:MakeTab({
+    Name = "游戏脚本",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
 local TabInfo = Window:MakeTab({
     Name = "关于",
     Icon = "rbxassetid://102420960378431",
     PremiumOnly = false
 })
 
+--TabGames按钮
+
+TabGames:AddParagraph("游戏专属脚本 (缺失)")
+TabGames:AddLabel("后期我尽力补上 敬请期待（如果可以的话帮忙手机脚本或者脚本中心吧，谢谢😭（跪地））")
+
 -- TabInfo按钮
 TabInfo:AddParagraph("发起者 CNIHs_klxy123")
 TabInfo:AddLabel("只是一个自制免费的缝合脚本而已")
 TabInfo:AddLabel("版本: " .. ver .. " " .. ver_id)
 TabInfo:AddLabel("不要当skid😡")
+TabInfo:AddLabel("帮忙寻找一些游戏脚本，谢谢")
+
 -- Tab1按钮
 Tab1:AddButton({
     Name = "动作飞行（R6）",
