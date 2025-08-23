@@ -1,19 +1,19 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 
-ver = "1.2-20250822"
-ver_id = "Beta"
+ver = "1.2-20250823"
+ver_id = "Developer Beta 3"
 
 -- 启动通知
 OrionLib:MakeNotification({
     Name = "启动提示",
     Content = "脚本启动中，5秒后加载",
-    Image = "rbxassetid://102420960378431",
+    Image = "rbxassetid://127745733245131",
     Time = 5
 })
 
 -- 创建窗口
 local Window = OrionLib:MakeWindow({
-    Name = "CNIHs_klxy123的第一个脚本 (缝合 第二版)", 
+    Name = "CNIHs_klxy123的第一个脚本 (缝合)", 
     HidePremium = false, 
     SaveConfig = true, 
     ConfigFolder = "测试中🛠"
@@ -22,47 +22,142 @@ local Window = OrionLib:MakeWindow({
 -- 创建tab
 local Tab1 = Window:MakeTab({
     Name = "通用缝合（好玩的脚本）",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://15290394895",
     PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
     Name = "通用缝合（实用）",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://99010253510256",
     PremiumOnly = false
 })
 
 local Tab3 = Window:MakeTab({
     Name = "嘿壳",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://12643256117",
     PremiumOnly = false
 })
 
 local Tab4 = Window:MakeTab({
     Name = "Genesis FE",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://93896853353944",
     PremiumOnly = false
 })
 
 local TabGames = Window:MakeTab({
     Name = "游戏脚本",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://4728059072",
     PremiumOnly = false
 })
 
 local TabInfo = Window:MakeTab({
     Name = "关于",
-    Icon = "rbxassetid://102420960378431",
+    Icon = "rbxassetid://127745733245131",
     PremiumOnly = false
 })
 
 --TabGames按钮
+TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
+TabGames:AddParagraph("2025/8/23消息（时效性很强）", "现在可以用AC6炸国人聚集地了，可在“嘿壳”板块找到此脚本")
+TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
+TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
 
-TabGames:AddParagraph("游戏专属脚本 (缺失)")
-TabGames:AddLabel("后期我尽力补上 敬请期待（如果可以的话帮忙手机脚本或者脚本中心吧，谢谢😭（跪地））")
+
+
+
+TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
+
+TabGames:AddButton({
+    Name = "Doors - NullFire",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载doors-nullfire脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TeamNullFire/NullFire/main/loader.lua"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "Doors - Black king & Bob hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载doors-blackking&bobhub脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub"))()
+    end    
+})
+
+TabGames:AddParagraph("👊 TSB脚本", "这些是关于最强战场的脚本")
+
+TabGames:AddButton({
+    Name = "TSB - Free to skid（被我转载到github）",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载free 2 skid脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/tsb%20(not%20mine).lua'))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "TSB - vinq hub（密钥）",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载vinq hub脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/vinqDevelops/erwwefqweqewqwe/refs/heads/main/lol.txt'))()
+    end    
+})
+
+TabGames:AddParagraph("🏃‍ Nico's nextbots脚本", "这些是关于nnb的脚本")
+
+TabGames:AddButton({
+    Name = "Nico's nextbots - slowpihub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载vinq hub脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/slowpii/slowpihub/main/slowpihax"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "Nico's nextbots - 挂机防死亡|刷分",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载挂机防死亡|刷分脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        local Player = game:GetService("Players").LocalPlayer
+        while true do 
+            wait(0.5)
+            Player.Character.HumanoidRootPart.Position = Vector3.new(0, -50, 0)
+            wait(0.5)
+            Player.Character.HumanoidRootPart.Position = Vector3.new(0, -80, 0)
+        end
+    end    
+})
+
 
 -- TabInfo按钮
-TabInfo:AddParagraph("发起者 CNIHs_klxy123")
+TabInfo:AddParagraph("发起者 CNIHs_klxy123", "一个nico’s nextbots 3年牢玩家")
 TabInfo:AddLabel("只是一个自制免费的缝合脚本而已")
 TabInfo:AddLabel("版本: " .. ver .. " " .. ver_id)
 TabInfo:AddLabel("不要当skid😡")
