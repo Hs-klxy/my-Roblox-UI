@@ -213,6 +213,62 @@ TabGames:AddButton({
     end    
 })
 
+TabGames:AddParagraph("🥚 宠物模拟器脚本", "这些是关于宠物模拟器的脚本")
+
+TabGames:AddButton({
+    Name = "PS99 - Zaphub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Zap hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "PS99 - 6FootScripts",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载6FootScripts...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/SlamminPig/6FootScripts/main/Scripts/PetSimulator99.lua'))()
+    end    
+})
+
+TabGames:AddParagraph("🥚 brookhaven脚本", "这些是关于brookhaven的脚本")
+
+TabGames:AddButton({
+    Name = "Brokhaven - Ice hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Ice hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Waza80/scripts-new/main/IceHubBrookhaven.lua"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "Brokhaven - SP hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载SP hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()
+    end    
+})
+
 -- TabInfo按钮
 TabInfo:AddParagraph("发起者 CNIHs_klxy123", "一个nico’s nextbots 3年牢玩家")
 TabInfo:AddLabel("只是一个自制免费的缝合脚本而已")
