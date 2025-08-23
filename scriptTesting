@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
-
+local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
 ver_id = "Developer Beta 3"
 
@@ -71,7 +71,6 @@ TabGames:AddButton({
             Time = 3
         })
         wait(3)
-        local Player = game:GetService("Players").LocalPlayer
         while true do
             Player.Character.HumanoidRootPart.Position = Vector3.new(68, -49, 12)
             wait(2)
