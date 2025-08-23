@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
-
+local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
-ver_id = "Developer Beta 3"
+ver_id = "Developer Beta 4"
 
 -- 启动通知
 OrionLib:MakeNotification({
@@ -61,7 +61,6 @@ TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
 TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
 -- Empty
-
 
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
@@ -154,6 +153,65 @@ TabGames:AddButton({
     end    
 })
 
+TabGames:AddParagraph("⚡ blox fruits脚本", "这些是关于blox fruits的脚本")
+
+TabGames:AddButton({
+    Name = "blox fruits - Redz hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Redz hub脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        local Settings = {
+            JoinTeam = "Pirates"; -- Pirates / Marines
+            Translator = true;   -- true / false
+        }
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
+    end    
+})
+
+TabGames:AddButton({
+    Name = "blox fruits - Autofarm",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Autofarm脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/7d8a2a1a9a562a403b52532e58a14065.lua"))()
+    end    
+})
+
+TabGames:AddParagraph("🌪 自然灾害脚本", "这些是关于自然灾害生存的脚本")
+
+TabGames:AddButton({
+    Name = "NDS - NDS hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载NDS hub脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KaterHub-Inc/NaturalDisasterSurvival/refs/heads/main/main.lua"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "NDS - 黑洞",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载黑洞脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/blackhole%20(not%20mine).lua"))()
+    end    
+})
 
 -- TabInfo按钮
 TabInfo:AddParagraph("发起者 CNIHs_klxy123", "一个nico’s nextbots 3年牢玩家")
