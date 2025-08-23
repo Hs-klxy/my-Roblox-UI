@@ -70,6 +70,7 @@ TabGames:AddButton({
             Image = "rbxassetid://4483345998",
             Time = 3
         })
+        local Player = game:GetService("Players").LocalPlayer
         wait(3)
         while true do
             Player.Character.HumanoidRootPart.Position = Vector3.new(68, -49, 12)
