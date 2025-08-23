@@ -58,10 +58,9 @@ local TabInfo = Window:MakeTab({
 
 --TabGames按钮
 TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
-TabGames:AddParagraph("2025/8/23消息（时效性很强）", "现在可以用AC6炸国人聚集地了，可在“嘿壳”板块找到此脚本")
 TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
-
+-- Empty
 
 
 
