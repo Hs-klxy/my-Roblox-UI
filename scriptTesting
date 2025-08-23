@@ -88,7 +88,6 @@ TabGames:AddButton({
             wait(2)
             Player.Character.HumanoidRootPart.Position = Vector3.new(386, -46, 1)
             wait(2)
-            print("一轮已结束，准备下一轮")
     end    
 })
 
