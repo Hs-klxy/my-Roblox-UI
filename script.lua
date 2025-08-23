@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
-ver_id = "Developer Beta 4"
+ver_id = "Developer Beta 5"
 
 -- 启动通知
 OrionLib:MakeNotification({
@@ -61,7 +61,6 @@ TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
 TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
 -- Empty
-
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
@@ -210,6 +209,62 @@ TabGames:AddButton({
             Time = 3
         })
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/blackhole%20(not%20mine).lua"))()
+    end    
+})
+
+TabGames:AddParagraph("🥚 宠物模拟器脚本", "这些是关于宠物模拟器的脚本")
+
+TabGames:AddButton({
+    Name = "PS99 - Zaphub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Zap hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "PS99 - 6FootScripts",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载6FootScripts...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/SlamminPig/6FootScripts/main/Scripts/PetSimulator99.lua'))()
+    end    
+})
+
+TabGames:AddParagraph("🥚 brookhaven脚本", "这些是关于brookhaven的脚本")
+
+TabGames:AddButton({
+    Name = "Brokhaven - Ice hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载Ice hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Waza80/scripts-new/main/IceHubBrookhaven.lua"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "Brokhaven - SP hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载SP hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()
     end    
 })
 
