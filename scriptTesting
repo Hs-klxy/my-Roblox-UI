@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
-ver_id = "Developer Beta 3"
+ver_id = "Developer Beta 5"
 
 -- 启动通知
 OrionLib:MakeNotification({
@@ -61,7 +61,6 @@ TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
 TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
 -- Empty
-
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
@@ -269,11 +268,72 @@ TabGames:AddButton({
     end    
 })
 
+TabGames:AddParagraph("🔪 murder Mystery脚本", "这是关于MM2的脚本")
+
+TabGames:AddButton({
+    Name = "MM2 - arlenwood的脚本",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载arlenwood的脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/MM2/refs/heads/main/script.lua"))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "MM2 - YAHRM hub",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载YAHRM hub...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://pastebin.com/raw/k1aPFVCp", true))()
+    end    
+})
+
+TabGames:AddParagraph("🦹🏿‍♂️ jailbreak脚本", "这些是关于越狱的脚本")
+
+TabGames:AddButton({
+    Name = "越狱 - jailbreak regular script",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载jailbreak regular script",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Sufyan123-bit/Scripts/refs/heads/main/jailbreakregularscript.lua'))()
+    end    
+})
+
+TabGames:AddButton({
+    Name = "越狱 - a fanmade script",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "加载中",
+            Content = "正在加载一个游戏粉丝制作的脚本...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/730854e5b6499ee91deb1080e8e12ae3.lua"))()
+    end    
+})
+
+
+
+
+
+
 -- TabInfo按钮
 TabInfo:AddParagraph("发起者 CNIHs_klxy123", "一个nico’s nextbots 3年牢玩家")
 TabInfo:AddLabel("只是一个自制免费的缝合脚本而已")
 TabInfo:AddLabel("版本: " .. ver .. " " .. ver_id)
-TabInfo:AddLabel("不要当skid😡")
+TabInfo:AddLabel("不要当skid😡😡😡")
 TabInfo:AddLabel("帮忙寻找一些游戏脚本，谢谢")
 
 -- Tab1按钮
@@ -409,7 +469,7 @@ Tab3:AddButton({
             Image = "rbxassetid://4483345998",
             Time = 5
         })
-        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/jLn0n/scripts/backdoor-executor.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/jLn0n/scripts/backdoor-executor.lua"))()
     end    
 })
 
