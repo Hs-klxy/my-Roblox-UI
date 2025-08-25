@@ -1,8 +1,24 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/iOS_UI.lua"))()
-
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
 ver_id = "Developer Beta 5"
+
+OrionLib.Themes["Default"] = {
+    Main = Color3.fromRGB(0, 0, 0),
+    Second = Color3.fromRGB(30, 30, 30),
+    Stroke = Color3.fromRGB(0, 0, 0),
+    Divider = Color3.fromRGB(60, 60, 60),
+    Text = Color3.fromRGB(255, 255, 255),
+    TextDark = Color3.fromRGB(152, 152, 159), 
+}
+
+
+
+
+
+
+
+
 
 -- 启动通知
 OrionLib:MakeNotification({
