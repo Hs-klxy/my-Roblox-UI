@@ -12,12 +12,24 @@ OrionLib.Themes["Default"] = {
     TextDark = Color3.fromRGB(152, 152, 159), 
 }
 
+local Button = Instance.new("TextButton")
+Button.Name = "Button"
+Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
+Button.TextColor3 = Color3.fromRGB(9, 132, 255)
+Button.BorderSizePixel = 0
 
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10) 
+uiCorner.Parent = element
 
+local element = Instance.new("Frame")
+element.Name = "BorderedElement"
+element.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+element.BorderColor3 = Color3.fromRGB(60, 60, 60) -- 边框颜色
+element.BorderSizePixel = 0 -- 边框粗细
 
-
-
-
+-- 如果想去掉所有边框，可以设置 BorderSizePixel 为 0:cite[9]
+element.BorderSizePixel = 0
 
 
 -- 启动通知
