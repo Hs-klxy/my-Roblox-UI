@@ -314,8 +314,8 @@ end)
 
 CreateElement("Button", function()
     local Button = Create("TextButton", {
-        Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
-        Button.TextColor3 = Color3.fromRGB(10, 132, 255)
+        Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30),
+        Button.TextColor3 = Color3.fromRGB(10, 132, 255),
         Text = "",
         AutoButtonColor = false,
         BackgroundTransparency = 1,
