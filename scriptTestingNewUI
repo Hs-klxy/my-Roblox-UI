@@ -12,11 +12,6 @@ OrionLib.Themes["Default"] = {
     TextDark = Color3.fromRGB(152, 152, 159), 
 }
 
-local Button = Instance.new("TextButton")
-Button.Name = "Button"
-Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
-Button.TextColor3 = Color3.fromRGB(9, 132, 255)
-Button.BorderSizePixel = 0
 
 local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 10) 
