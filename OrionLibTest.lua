@@ -12,12 +12,12 @@ local OrionLib = {
     Flags = {},
     Themes = {
     Default = {
-        Main = Color3.fromRGB(25, 25, 25),
-        Second = Color3.fromRGB(32, 32, 32),
-        Stroke = Color3.fromRGB(60, 60, 60),
+        Main = Color3.fromRGB(0, 0, 0),
+        Second = Color3.fromRGB(30, 30, 30),
+        Stroke = Color3.fromRGB(0, 0, 0),
         Divider = Color3.fromRGB(60, 60, 60),
-        Text = Color3.fromRGB(240, 240, 240),
-        TextDark = Color3.fromRGB(150, 150, 150)
+        Text = Color3.fromRGB(255, 255, 255),
+        TextDark = Color3.fromRGB(152, 152, 159), 
         }
     },
     SelectedTheme = "Default",
@@ -314,8 +314,6 @@ end)
 
 CreateElement("Button", function()
     local Button = Create("TextButton", {
-        Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30),
-        Button.TextColor3 = Color3.fromRGB(10, 132, 255),
         Text = "",
         AutoButtonColor = false,
         BackgroundTransparency = 1,
