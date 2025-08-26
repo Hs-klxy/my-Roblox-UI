@@ -1,5 +1,5 @@
 -- iOS 26 UI 库完整使用示例
-local iOS26UI = loadstring(game:HttpGet("YOUR_SCRIPT_URL_HERE"))()
+local iOS26UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/NewUITest"))()
 
 -- 创建窗口
 local window = iOS26UI:CreateWindow({
