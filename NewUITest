@@ -1,0 +1,658 @@
+-- 仿 iOS 26 风格 UI 库（带拖动功能）
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+
+-- iOS 26 颜色主题
+local iOSColors = {
+    Background = Color3.fromRGB(28, 28, 30),      -- 主背景色
+    SecondaryBackground = Color3.fromRGB(44, 44, 46), -- 次级背景色
+    TabBackground = Color3.fromRGB(30, 30, 32),   -- 标签栏背景
+    SelectedTab = Color3.fromRGB(50, 50, 54),     -- 选中标签背景
+    Divider = Color3.fromRGB(60, 60, 64),         -- 分隔线颜色
+    Text = Color3.fromRGB(242, 242, 247),         -- 主要文本颜色
+    SecondaryText = Color3.fromRGB(174, 174, 178),-- 次要文本颜色
+    ButtonText = Color3.fromRGB(10, 132, 255),    -- 按钮文本颜色(iOS蓝)
+    ElementBackground = Color3.fromRGB(44, 44, 46) -- UI元素背景色
+}
+
+-- 创建主 UI 容器
+local iOSUI = Instance.new("ScreenGui")
+iOSUI.Name = "iOS26UI"
+iOSUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+iOSUI.ResetOnSpawn = false
+
+if syn and syn.protect_gui then
+    syn.protect_gui(iOSUI)
+    iOSUI.Parent = game:GetService("CoreGui")
+elseif gethui then
+    iOSUI.Parent = gethui()
+else
+    iOSUI.Parent = game:GetService("CoreGui")
+end
+
+-- 工具函数
+local function create(name, properties)
+    local instance = Instance.new(name)
+    for property, value in pairs(properties) do
+        instance[property] = value
+    end
+    return instance
+end
+
+local function roundify(element, radius)
+    local corner = create("UICorner", {
+        CornerRadius = UDim.new(0, radius or 10)
+    })
+    corner.Parent = element
+    return corner
+end
+
+local function addPadding(element, padding)
+    local uiPadding = create("UIPadding", {
+        PaddingLeft = UDim.new(0, padding),
+        PaddingRight = UDim.new(0, padding),
+        PaddingTop = UDim.new(0, padding),
+        PaddingBottom = UDim.new(0, padding)
+    })
+    uiPadding.Parent = element
+    return uiPadding
+end
+
+-- 窗口类
+local iOSWindow = {}
+iOSWindow.__index = iOSWindow
+
+function iOSWindow.new(config)
+    config = config or {}
+    local self = setmetatable({}, iOSWindow)
+    
+    self.title = config.Title or "iOS 26 UI"
+    self.size = config.Size or UDim2.new(0, 600, 0, 400)
+    self.position = config.Position or UDim2.new(0.5, -300, 0.5, -200)
+    self.minimized = false
+    self.hidden = false
+    
+    -- 创建主窗口
+    self.mainFrame = create("Frame", {
+        Name = "MainWindow",
+        Size = self.size,
+        Position = self.position,
+        BackgroundColor3 = iOSColors.Background,
+        BorderSizePixel = 0,
+        Parent = iOSUI
+    })
+    roundify(self.mainFrame, 12)
+    
+    -- 创建标题栏（拖动区域）
+    self.titleBar = create("Frame", {
+        Name = "TitleBar",
+        Size = UDim2.new(1, 0, 0, 40),
+        BackgroundColor3 = iOSColors.Background,
+        BorderSizePixel = 0,
+        Parent = self.mainFrame
+    })
+    
+    -- 标题文本
+    self.titleLabel = create("TextLabel", {
+        Name = "Title",
+        Size = UDim2.new(1, -100, 1, 0),
+        Position = UDim2.new(0, 50, 0, 0),
+        BackgroundTransparency = 1,
+        Text = self.title,
+        TextColor3 = iOSColors.Text,
+        TextSize = 16,
+        Font = Enum.Font.SourceSansSemibold,
+        TextXAlignment = Enum.TextXAlignment.Center,
+        Parent = self.titleBar
+    })
+    
+    -- macOS 风格按钮容器
+    self.buttonContainer = create("Frame", {
+        Name = "MacButtons",
+        Size = UDim2.new(0, 70, 0, 20),
+        Position = UDim2.new(0, 10, 0, 10),
+        BackgroundTransparency = 1,
+        Parent = self.titleBar
+    })
+    
+    -- 关闭按钮
+    self.closeButton = create("TextButton", {
+        Name = "CloseButton",
+        Size = UDim2.new(0, 16, 0, 16),
+        Position = UDim2.new(0, 0, 0, 0),
+        BackgroundColor3 = Color3.fromRGB(237, 106, 94),
+        Text = "",
+        AutoButtonColor = false,
+        Parent = self.buttonContainer
+    })
+    roundify(self.closeButton, 8)
+    
+    -- 最小化按钮
+    self.minimizeButton = create("TextButton", {
+        Name = "MinimizeButton",
+        Size = UDim2.new(0, 16, 0, 16),
+        Position = UDim2.new(0, 22, 0, 0),
+        BackgroundColor3 = Color3.fromRGB(245, 191, 79),
+        Text = "",
+        AutoButtonColor = false,
+        Parent = self.buttonContainer
+    })
+    roundify(self.minimizeButton, 8)
+    
+    -- 最大化按钮
+    self.maximizeButton = create("TextButton", {
+        Name = "MaximizeButton",
+        Size = UDim2.new(0, 16, 0, 16),
+        Position = UDim2.new(0, 44, 0, 0),
+        BackgroundColor3 = Color3.fromRGB(97, 197, 84),
+        Text = "",
+        AutoButtonColor = false,
+        Parent = self.buttonContainer
+    })
+    roundify(self.maximizeButton, 8)
+    
+    -- 分隔线1: 标题栏和内容区分隔
+    self.divider1 = create("Frame", {
+        Name = "Divider1",
+        Size = UDim2.new(1, 0, 0, 1),
+        Position = UDim2.new(0, 0, 0, 40),
+        BackgroundColor3 = iOSColors.Divider,
+        BorderSizePixel = 0,
+        Parent = self.mainFrame
+    })
+    
+    -- 内容区域
+    self.contentArea = create("Frame", {
+        Name = "ContentArea",
+        Size = UDim2.new(1, 0, 1, -41),
+        Position = UDim2.new(0, 0, 0, 41),
+        BackgroundTransparency = 1,
+        Parent = self.mainFrame
+    })
+    
+    -- 左侧标签栏
+    self.tabContainer = create("ScrollingFrame", {
+        Name = "TabContainer",
+        Size = UDim2.new(0, 150, 1, 0),
+        Position = UDim2.new(0, 0, 0, 0),
+        BackgroundColor3 = iOSColors.TabBackground,
+        BorderSizePixel = 0,
+        ScrollBarThickness = 3,
+        ScrollBarImageColor3 = iOSColors.Divider,
+        CanvasSize = UDim2.new(0, 0, 0, 0),
+        Parent = self.contentArea
+    })
+    
+    -- 分隔线2: 左右面板分隔
+    self.divider2 = create("Frame", {
+        Name = "Divider2",
+        Size = UDim2.new(0, 1, 1, 0),
+        Position = UDim2.new(0, 150, 0, 0),
+        BackgroundColor3 = iOSColors.Divider,
+        BorderSizePixel = 0,
+        Parent = self.contentArea
+    })
+    
+    -- 右侧功能区域
+    self.functionContainer = create("ScrollingFrame", {
+        Name = "FunctionContainer",
+        Size = UDim2.new(1, -151, 1, 0),
+        Position = UDim2.new(0, 151, 0, 0),
+        BackgroundColor3 = iOSColors.Background,
+        BorderSizePixel = 0,
+        ScrollBarThickness = 3,
+        ScrollBarImageColor3 = iOSColors.Divider,
+        CanvasSize = UDim2.new(0, 0, 0, 0),
+        Parent = self.contentArea
+    })
+    
+    -- 添加布局
+    local tabLayout = create("UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(0, 5)
+    })
+    tabLayout.Parent = self.tabContainer
+    
+    local functionLayout = create("UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(0, 10)
+    })
+    functionLayout.Parent = self.functionContainer
+    
+    addPadding(self.tabContainer, 5)
+    addPadding(self.functionContainer, 15)
+    
+    -- 设置拖动功能
+    self.dragging = false
+    self.dragStart = nil
+    self.startPosition = nil
+    
+    self.titleBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            self.dragging = true
+            self.dragStart = input.Position
+            self.startPosition = self.mainFrame.Position
+            
+            -- 添加拖动效果
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.1), {
+                BackgroundColor3 = Color3.fromRGB(
+                    iOSColors.Background.R * 255 + 5,
+                    iOSColors.Background.G * 255 + 5,
+                    iOSColors.Background.B * 255 + 5
+                )
+            }):Play()
+        end
+    end)
+    
+    self.titleBar.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            self.dragging = false
+            
+            -- 恢复背景色
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.1), {
+                BackgroundColor3 = iOSColors.Background
+            }):Play()
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and self.dragging then
+            local delta = input.Position - self.dragStart
+            self.mainFrame.Position = UDim2.new(
+                self.startPosition.X.Scale, 
+                self.startPosition.X.Offset + delta.X,
+                self.startPosition.Y.Scale, 
+                self.startPosition.Y.Offset + delta.Y
+            )
+        end
+    end)
+    
+    -- 按钮功能
+    self.closeButton.MouseButton1Click:Connect(function()
+        self.mainFrame.Visible = false
+        self.hidden = true
+    end)
+    
+    self.minimizeButton.MouseButton1Click:Connect(function()
+        if self.minimized then
+            -- 恢复窗口
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.3), {Size = self.size}):Play()
+            self.minimized = false
+        else
+            -- 最小化窗口
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, 200, 0, 40)}):Play()
+            self.minimized = true
+        end
+    end)
+    
+    self.maximizeButton.MouseButton1Click:Connect(function()
+        -- 最大化/恢复窗口大小
+        if self.mainFrame.Size == UDim2.new(0.8, 0, 0.8, 0) then
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.3), {Size = self.size}):Play()
+        else
+            TweenService:Create(self.mainFrame, TweenInfo.new(0.3), {
+                Size = UDim2.new(0.8, 0, 0.8, 0),
+                Position = UDim2.new(0.1, 0, 0.1, 0)
+            }):Play()
+        end
+    end)
+    
+    -- 标签和功能存储
+    self.tabs = {}
+    self.currentTab = nil
+    
+    return self
+end
+
+-- 添加标签页
+function iOSWindow:AddTab(name, icon)
+    local tabButton = create("TextButton", {
+        Name = name .. "Tab",
+        Size = UDim2.new(1, -10, 0, 40),
+        BackgroundColor3 = iOSColors.TabBackground,
+        Text = "",
+        AutoButtonColor = false,
+        LayoutOrder = #self.tabs + 1,
+        Parent = self.tabContainer
+    })
+    roundify(tabButton, 8)
+    
+    local tabText = create("TextLabel", {
+        Name = "Text",
+        Size = UDim2.new(1, -40, 1, 0),
+        Position = UDim2.new(0, 40, 0, 0),
+        BackgroundTransparency = 1,
+        Text = name,
+        TextColor3 = iOSColors.Text,
+        TextSize = 14,
+        Font = Enum.Font.SourceSansSemibold,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = tabButton
+    })
+    
+    -- 标签内容容器
+    local tabContent = create("Frame", {
+        Name = name .. "Content",
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Visible = false,
+        Parent = self.functionContainer
+    })
+    
+    local contentLayout = create("UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(0, 10)
+    })
+    contentLayout.Parent = tabContent
+    
+    addPadding(tabContent, 5)
+    
+    -- 更新标签容器大小
+    self.tabContainer.CanvasSize = UDim2.new(0, 0, 0, (#self.tabs + 1) * 45)
+    
+    -- 标签点击事件
+    tabButton.MouseButton1Click:Connect(function()
+        self:SelectTab(name)
+    end)
+    
+    local tab = {
+        Name = name,
+        Button = tabButton,
+        Content = tabContent,
+        Elements = {}
+    }
+    
+    table.insert(self.tabs, tab)
+    
+    -- 如果是第一个标签，自动选中
+    if #self.tabs == 1 then
+        self:SelectTab(name)
+    end
+    
+    return tab
+end
+
+-- 选择标签页
+function iOSWindow:SelectTab(tabName)
+    for _, tab in ipairs(self.tabs) do
+        if tab.Name == tabName then
+            -- 激活选中的标签
+            tab.Content.Visible = true
+            TweenService:Create(tab.Button, TweenInfo.new(0.2), {
+                BackgroundColor3 = iOSColors.SelectedTab
+            }):Play()
+            
+            -- 存储当前标签
+            self.currentTab = tab
+        else
+            -- 停用其他标签
+            tab.Content.Visible = false
+            TweenService:Create(tab.Button, TweenInfo.new(0.2), {
+                BackgroundColor3 = iOSColors.TabBackground
+            }):Play()
+        end
+    end
+end
+
+-- 添加标签到内容
+function iOSWindow:AddLabel(text)
+    if not self.currentTab then return end
+    
+    local label = create("TextLabel", {
+        Name = "Label",
+        Size = UDim2.new(1, 0, 0, 30),
+        BackgroundColor3 = iOSColors.ElementBackground,
+        Text = text,
+        TextColor3 = iOSColors.Text,
+        TextSize = 14,
+        Font = Enum.Font.SourceSans,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        LayoutOrder = #self.currentTab.Elements + 1,
+        Parent = self.currentTab.Content
+    })
+    roundify(label, 8)
+    addPadding(label, 10)
+    
+    table.insert(self.currentTab.Elements, label)
+    
+    -- 更新内容区域大小
+    self.currentTab.Content.Size = UDim2.new(1, 0, 0, #self.currentTab.Elements * 40)
+    self.functionContainer.CanvasSize = UDim2.new(0, 0, 0, #self.currentTab.Elements * 40 + 20)
+    
+    return label
+end
+
+function iOSWindow:AddParagraph(title, content)
+    if not self.currentTab then return end
+    
+    local paragraphFrame = create("Frame", {
+        Name = "Paragraph",
+        Size = UDim2.new(1, 0, 0, 60),
+        BackgroundColor3 = iOSColors.ElementBackground,
+        LayoutOrder = #self.currentTab.Elements + 1,
+        Parent = self.currentTab.Content
+    })
+    roundify(paragraphFrame, 8)
+    addPadding(paragraphFrame, 10)
+    
+    local titleLabel = create("TextLabel", {
+        Name = "Title",
+        Size = UDim2.new(1, 0, 0, 20),
+        BackgroundTransparency = 1,
+        Text = title,
+        TextColor3 = iOSColors.Text,
+        TextSize = 14,
+        Font = Enum.Font.SourceSansSemibold,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = paragraphFrame
+    })
+    
+    local contentLabel = create("TextLabel", {
+        Name = "Content",
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, 25),
+        BackgroundTransparency = 1,
+        Text = content,
+        TextColor3 = iOSColors.SecondaryText,
+        TextSize = 13,
+        Font = Enum.Font.SourceSans,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        TextWrapped = true,
+        Parent = paragraphFrame
+    })
+    
+    table.insert(self.currentTab.Elements, paragraphFrame)
+    
+    -- 更新内容区域大小
+    self.currentTab.Content.Size = UDim2.new(1, 0, 0, #self.currentTab.Elements * 70)
+    self.functionContainer.CanvasSize = UDim2.new(0, 0, 0, #self.currentTab.Elements * 70 + 20)
+    
+    return paragraphFrame
+end
+
+function iOSWindow:AddButton(name, callback)
+    if not self.currentTab then return end
+    
+    local button = create("TextButton", {
+        Name = "Button",
+        Size = UDim2.new(1, 0, 0, 40),
+        BackgroundColor3 = iOSColors.ElementBackground,
+        Text = name,
+        TextColor3 = iOSColors.ButtonText,
+        TextSize = 14,
+        Font = Enum.Font.SourceSansSemibold,
+        AutoButtonColor = false,
+        LayoutOrder = #self.currentTab.Elements + 1,
+        Parent = self.currentTab.Content
+    })
+    roundify(button, 8)
+    
+    -- 按钮交互效果
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(
+                iOSColors.ElementBackground.R * 255 + 5,
+                iOSColors.ElementBackground.G * 255 + 5,
+                iOSColors.ElementBackground.B * 255 + 5
+            )
+        }):Play()
+    end)
+    
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {
+            BackgroundColor3 = iOSColors.ElementBackground
+        }):Play()
+    end)
+    
+    button.MouseButton1Click:Connect(function()
+        if callback then
+            callback()
+        end
+    end)
+    
+    table.insert(self.currentTab.Elements, button)
+    
+    -- 更新内容区域大小
+    self.currentTab.Content.Size = UDim2.new(1, 0, 0, #self.currentTab.Elements * 50)
+    self.functionContainer.CanvasSize = UDim2.new(0, 0, 0, #self.currentTab.Elements * 50 + 20)
+    
+    return button
+end
+
+-- 添加开关控件
+function iOSWindow:AddToggle(name, default, callback)
+    if not self.currentTab then return end
+    
+    local toggleFrame = create("Frame", {
+        Name = "Toggle",
+        Size = UDim2.new(1, 0, 0, 40),
+        BackgroundColor3 = iOSColors.ElementBackground,
+        LayoutOrder = #self.currentTab.Elements + 1,
+        Parent = self.currentTab.Content
+    })
+    roundify(toggleFrame, 8)
+    addPadding(toggleFrame, 10)
+    
+    local toggleLabel = create("TextLabel", {
+        Name = "Label",
+        Size = UDim2.new(0.7, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Text = name,
+        TextColor3 = iOSColors.Text,
+        TextSize = 14,
+        Font = Enum.Font.SourceSans,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = toggleFrame
+    })
+    
+    local toggleButton = create("Frame", {
+        Name = "ToggleButton",
+        Size = UDim2.new(0, 50, 0, 25),
+        Position = UDim2.new(1, -55, 0.5, -12.5),
+        AnchorPoint = Vector2.new(1, 0.5),
+        BackgroundColor3 = default and iOSColors.ButtonText or Color3.fromRGB(116, 116, 128),
+        Parent = toggleFrame
+    })
+    roundify(toggleButton, 12)
+    
+    local toggleCircle = create("Frame", {
+        Name = "ToggleCircle",
+        Size = UDim2.new(0, 21, 0, 21),
+        Position = default and UDim2.new(1, -23, 0.5, -10.5) or UDim2.new(0, 2, 0.5, -10.5),
+        AnchorPoint = Vector2.new(0, 0.5),
+        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+        Parent = toggleButton
+    })
+    roundify(toggleCircle, 10)
+    
+    local toggleValue = default
+    local toggleClick = create("TextButton", {
+        Name = "ClickArea",
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Text = "",
+        Parent = toggleFrame
+    })
+    
+    toggleClick.MouseButton1Click:Connect(function()
+        toggleValue = not toggleValue
+        if toggleValue then
+            TweenService:Create(toggleButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = iOSColors.ButtonText
+            }):Play()
+            TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
+                Position = UDim2.new(1, -23, 0.5, -10.5)
+            }):Play()
+        else
+            TweenService:Create(toggleButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = Color3.fromRGB(116, 116, 128)
+            }):Play()
+            TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
+                Position = UDim2.new(0, 2, 0.5, -10.5)
+            }):Play()
+        end
+        
+        if callback then
+            callback(toggleValue)
+        end
+    end)
+    
+    table.insert(self.currentTab.Elements, toggleFrame)
+    
+    -- 更新内容区域大小
+    self.currentTab.Content.Size = UDim2.new(1, 0, 0, #self.currentTab.Elements * 50)
+    self.functionContainer.CanvasSize = UDim2.new(0, 0, 0, #self.currentTab.Elements * 50 + 20)
+    
+    return {
+        Set = function(value)
+            toggleValue = value
+            if toggleValue then
+                toggleButton.BackgroundColor3 = iOSColors.ButtonText
+                toggleCircle.Position = UDim2.new(1, -23, 0.5, -10.5)
+            else
+                toggleButton.BackgroundColor3 = Color3.fromRGB(116, 116, 128)
+                toggleCircle.Position = UDim2.new(0, 2, 0.5, -10.5)
+            end
+        end,
+        Get = function()
+            return toggleValue
+        end
+    }
+end
+
+-- 显示/隐藏窗口
+function iOSWindow:Show()
+    self.mainFrame.Visible = true
+    self.hidden = false
+end
+
+function iOSWindow:Hide()
+    self.mainFrame.Visible = false
+    self.hidden = true
+end
+
+-- 创建 UI 库的主要接口
+local iOS26UI = {}
+
+function iOS26UI:CreateWindow(config)
+    return iOSWindow.new(config)
+end
+
+-- 初始化快捷键显示/隐藏
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.RightShift then
+        for _, child in ipairs(iOSUI:GetChildren()) do
+            if child:IsA("Frame") and child.Name == "MainWindow" then
+                child.Visible = not child.Visible
+            end
+        end
+    end
+end)
+
+return iOS26UI
