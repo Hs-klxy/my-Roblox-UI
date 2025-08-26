@@ -1,0 +1,185 @@
+-- iOS 26 UI 库完整使用示例
+local iOS26UI = loadstring(game:HttpGet("YOUR_SCRIPT_URL_HERE"))()
+
+-- 创建窗口
+local window = iOS26UI:CreateWindow({
+    Title = "iOS 26 UI 示例",
+    Size = UDim2.new(0, 650, 0, 500),
+    Position = UDim2.new(0.5, -325, 0.5, -250)
+})
+
+-- 添加多个标签页
+local mainTab = window:AddTab("主要设置")
+local appearanceTab = window:AddTab("外观设置")
+local advancedTab = window:AddTab("高级选项")
+local infoTab = window:AddTab("关于")
+
+-- 主要设置标签页
+window:SelectTab("主要设置")
+
+-- 添加标签
+window:AddLabel("基本配置")
+
+-- 添加段落
+window:AddParagraph("欢迎使用", "这是一个完整的 iOS 26 风格 UI 示例，展示了所有可用的控件类型。")
+
+-- 添加按钮
+window:AddButton("主要功能按钮", function()
+    print("主要功能按钮被点击!")
+end)
+
+-- 添加开关控件
+local autoSaveToggle = window:AddToggle("自动保存", true, function(value)
+    print("自动保存:", value and "开启" or "关闭")
+end)
+
+-- 添加另一个开关
+local notificationsToggle = window:AddToggle("启用通知", false, function(value)
+    print("通知:", value and "开启" or "关闭")
+end)
+
+-- 添加更多按钮
+window:AddButton("保存设置", function()
+    print("设置已保存!")
+end)
+
+-- 添加分隔标签
+window:AddLabel("高级功能")
+
+-- 添加更多控件
+window:AddButton("重置所有设置", function()
+    print("重置所有设置!")
+    autoSaveToggle.Set(false)
+    notificationsToggle.Set(false)
+end)
+
+-- 外观设置标签页
+window:SelectTab("外观设置")
+window:AddLabel("主题设置")
+
+-- 添加主题选项
+local darkThemeToggle = window:AddToggle("深色模式", true, function(value)
+    print("深色模式:", value and "开启" or "关闭")
+end)
+
+-- 添加颜色选择按钮
+window:AddButton("选择主题颜色", function()
+    print("打开颜色选择器!")
+end)
+
+-- 添加更多外观选项
+window:AddLabel("界面设置")
+window:AddToggle("显示图标", true, function(value)
+    print("显示图标:", value and "开启" or "关闭")
+end)
+
+window:AddToggle("动画效果", true, function(value)
+    print("动画效果:", value and "开启" or "关闭")
+end)
+
+-- 添加滑块模拟（使用按钮）
+window:AddLabel("透明度设置")
+window:AddButton("UI 透明度: 80%", function()
+    print("调整UI透明度!")
+end)
+
+-- 高级选项标签页
+window:SelectTab("高级选项")
+window:AddLabel("性能设置")
+
+-- 添加性能选项
+window:AddToggle("高性能模式", false, function(value)
+    print("高性能模式:", value and "开启" or "关闭")
+end)
+
+window:AddToggle("详细日志", false, function(value)
+    print("详细日志:", value and "开启" or "关闭")
+end)
+
+-- 添加调试选项
+window:AddLabel("调试功能")
+window:AddButton("生成诊断报告", function()
+    print("生成诊断报告中...")
+end)
+
+window:AddButton("清除缓存", function()
+    print("缓存已清除!")
+end)
+
+-- 添加快捷键说明
+window:AddParagraph("快捷键", "右 Shift - 显示/隐藏界面")
+
+-- 关于标签页
+window:SelectTab("关于")
+window:AddLabel("应用信息")
+
+-- 添加应用信息
+window:AddParagraph("版本", "iOS 26 UI 库 v1.0.0")
+window:AddParagraph("开发人员", "Your Name Here")
+window:AddParagraph("描述", "一个仿 iOS 26 风格的 Roblox UI 库，提供现代化的界面元素和交互体验。")
+
+-- 添加链接按钮
+window:AddButton("访问 GitHub", function()
+    print("打开GitHub页面!")
+end)
+
+window:AddButton("检查更新", function()
+    print("检查更新中...")
+end)
+
+-- 添加版权信息
+window:AddLabel("版权信息")
+window:AddParagraph("许可证", "MIT License - 可自由使用和修改")
+
+-- 返回主标签页
+window:SelectTab("主要设置")
+
+-- 添加一些交互示例
+local clickCount = 0
+local counterButton = window:AddButton("点击计数: 0", function()
+    clickCount = clickCount + 1
+    counterButton.Text = "点击计数: " .. clickCount
+    print("点击次数:", clickCount)
+end)
+
+-- 添加动态内容示例
+window:AddButton("切换自动保存", function()
+    local currentState = autoSaveToggle.Get()
+    autoSaveToggle.Set(not currentState)
+    print("自动保存已" .. (not currentState and "开启" or "关闭"))
+end)
+
+-- 添加一个功能来演示所有控件
+window:AddLabel("演示功能")
+window:AddButton("演示所有功能", function()
+    print("=== 开始演示 ===")
+    
+    -- 模拟切换标签
+    local tabs = {"外观设置", "高级选项", "关于", "主要设置"}
+    for i, tabName in ipairs(tabs) do
+        wait(0.5)
+        window:SelectTab(tabName)
+        print("切换到标签:", tabName)
+    end
+    
+    -- 模拟切换开关
+    wait(0.5)
+    autoSaveToggle.Set(false)
+    print("自动保存已关闭")
+    
+    wait(0.5)
+    notificationsToggle.Set(true)
+    print("通知已开启")
+    
+    wait(0.5)
+    autoSaveToggle.Set(true)
+    print("自动保存已开启")
+    
+    print("=== 演示结束 ===")
+end)
+
+-- 添加一个说明段落
+window:AddParagraph("使用说明", "点击标题栏可以拖动窗口。使用右Shift键可以快速显示或隐藏界面。")
+
+print("iOS 26 UI 示例已加载完成!")
+print("按右Shift键可以显示/隐藏界面")
