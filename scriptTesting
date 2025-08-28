@@ -62,62 +62,20 @@ TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
 
 TabGames:AddButton({
-    Name = "获取刀道具",
+    Name = "国人聚集地 - 获取刀"
     Callback = function()
-        OrionLib:MakeNotification({
-            Name = "获取道具",
-            Content = "正在尝试获取刀道具...",
-            Image = "rbxassetid://4483345998",
+        OrionLib:MakeNotifation({
+            Name = "加载中",
+            Content = "正在加载获取刀具脚本...",
+            Image = "rbxassetid://448345998",
             Time = 3
         })
-        
-        -- 延迟执行以确保游戏环境加载完成
-        wait(1)
-        
-        local success, message = pcall(function()
-            -- 获取游戏服务
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Players = game:GetService("Players")
-            local localPlayer = Players.LocalPlayer
-            
-            -- 查找刀道具
-            local knife = ReplicatedStorage:FindFirstChild("刀")
-            if not knife then
-                knife = ReplicatedStorage:FindFirstChild("Knife") -- 尝试英文名称
-            end
-            
-            if knife then
-                -- 克隆道具到背包
-                local clone = knife:Clone()
-                clone.Parent = localPlayer.Backpack
-                
-                OrionLib:MakeNotification({
-                    Name = "成功",
-                    Content = "已成功获取刀道具!",
-                    Image = "rbxassetid://4483345998",
-                    Time = 5
-                })
-            else
-                OrionLib:MakeNotification({
-                    Name = "失败",
-                    Content = "未找到刀道具，请检查道具名称",
-                    Image = "rbxassetid://4483345998",
-                    Time = 5
-                })
-            end
-        end)
-        
-        -- 错误处理
-        if not success then
-            OrionLib:MakeNotification({
-                Name = "错误",
-                Content = "获取道具时出错: " .. message,
-                Image = "rbxassetid://4483345998",
-                Time = 5
-            })
-        end
-    end    
-})
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Players = game:GetService("Players")
+    local localPlayer = Players.LocalPlayer
+    local knife = ReplicatedStorage:FindFirstChild("刀")
+    local clone = knife:Clone()
+    clone.Parent = localPlayer.Backpack
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
