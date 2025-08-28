@@ -3,6 +3,35 @@ local Player = game:GetService("Players").LocalPlayer
 ver = "1.2-20250823"
 ver_id = "Developer Beta 5"
 
+OrionLib.Themes["Default"] = {
+    Main = Color3.fromRGB(0, 0, 0),
+    Second = Color3.fromRGB(30, 30, 30),
+    Stroke = Color3.fromRGB(0, 0, 0),
+    Divider = Color3.fromRGB(60, 60, 60),
+    Text = Color3.fromRGB(255, 255, 255),
+    TextDark = Color3.fromRGB(152, 152, 159), 
+}
+
+local Button = Instance.new("TextButton")
+Button.Name = "Button"
+Button.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
+Button.TextColor3 = Color3.fromRGB(9, 132, 255)
+Button.BorderSizePixel = 0
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10) 
+uiCorner.Parent = element
+
+local element = Instance.new("Frame")
+element.Name = "BorderedElement"
+element.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+element.BorderColor3 = Color3.fromRGB(60, 60, 60) -- 边框颜色
+element.BorderSizePixel = 0 -- 边框粗细
+
+-- 如果想去掉所有边框，可以设置 BorderSizePixel 为 0:cite[9]
+element.BorderSizePixel = 0
+
+
 -- 启动通知
 OrionLib:MakeNotification({
     Name = "启动提示",
@@ -60,14 +89,15 @@ local TabInfo = Window:MakeTab({
 TabGames:AddParagraph("🧈 黄油", "这些是关于国人黄油的脚本")
 TabGames:AddLabel("如果有枪械/刀的话可以尝试用IY的rspy工具抓包玩家受到伤害的remote，然后持续运行")
 TabGames:AddLabel("因为“悦”服务器被封，暂时无法查询漏洞，敬请期待")
+-- Empty
 
 TabGames:AddButton({
-    Name = "国人聚集地 - 获取刀"
+    Name = "国人聚集地 - 获取刀",
     Callback = function()
-        OrionLib:MakeNotifation({
+        OrionLib:MakeNotification({
             Name = "加载中",
-            Content = "正在加载获取刀具脚本...",
-            Image = "rbxassetid://448345998",
+            Content = "正在加载拿刀脚本...",
+            Image = "rbxassetid://4483345998",
             Time = 3
         })
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -76,8 +106,14 @@ TabGames:AddButton({
         local knife = ReplicatedStorage:FindFirstChild("刀")
         local clone = knife:Clone()
         clone.Parent = localPlayer.Backpack
-   end    
+    end    
 })
+
+
+
+
+
+
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
