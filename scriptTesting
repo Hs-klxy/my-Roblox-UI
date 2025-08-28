@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hs-klxy/my-Roblox-UI/refs/heads/main/OrionLib.lua'))()
 local Player = game:GetService("Players").LocalPlayer
 ver = "1.4-20250828"
-ver_id = "Developer Beta 1"
+ver_id = "Release"
 
 OrionLib.Themes["Default"] = {
     Main = Color3.fromRGB(0, 0, 0),
@@ -109,11 +109,281 @@ TabGames:AddButton({
     end    
 })
 
+-- 在TabGames中添加道具复制功能
+TabGames:AddParagraph({
+    Name = "道具复制器",
+    Content = "从其他玩家背包复制道具到自己的背包"
+})
 
+-- 创建输入框让用户输入道具名称
+TabGames:AddTextbox({
+    Name = "输入道具名称",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(Value)
+        _G.ItemToCopy = Value
+    end    
+})
 
+-- 添加复制按钮
+TabGames:AddButton({
+    Name = "搜索并复制道具",
+    Callback = function()
+        if not _G.ItemToCopy or _G.ItemToCopy == "" then
+            OrionLib:MakeNotification({
+                Name = "错误",
+                Content = "请输入道具名称",
+                Image = "rbxassetid://4483345998",
+                Time = 3
+            })
+            return
+        end
+        
+        OrionLib:MakeNotification({
+            Name = "搜索中",
+            Content = "正在搜索: " .. _G.ItemToCopy,
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        
+        -- 延迟执行以确保游戏环境加载完成
+        wait(1)
+        
+        local success, message = pcall(function()
+            local Players = game:GetService("Players")
+            local localPlayer = Players.LocalPlayer
+            local found = false
+            
+            -- 遍历所有玩家
+            for _, player in pairs(Players:GetPlayers()) do
+                -- 跳过自己
+                if player ~= localPlayer then
+                    -- 检查玩家是否有背包
+                    if player:FindFirstChild("Backpack") then
+                        -- 在玩家背包中搜索道具
+                        local item = player.Backpack:FindFirstChild(_G.ItemToCopy)
+                        if item then
+                            -- 复制道具到本地玩家背包
+                            local clone = item:Clone()
+                            clone.Parent = localPlayer.Backpack
+                            found = true
+                            
+                            OrionLib:MakeNotification({
+                                Name = "成功",
+                                Content = "已从 " .. player.Name .. " 复制: " .. _G.ItemToCopy,
+                                Image = "rbxassetid://4483345998",
+                                Time = 5
+                            })
+                            break -- 找到一个就停止搜索
+                        end
+                    end
+                end
+            end
+            
+            if not found then
+                -- 如果背包中没有，检查玩家角色手中是否持有
+                for _, player in pairs(Players:GetPlayers()) do
+                    if player ~= localPlayer and player.Character then
+                        local item = player.Character:FindFirstChild(_G.ItemToCopy)
+                        if item then
+                            local clone = item:Clone()
+                            clone.Parent = localPlayer.Backpack
+                            found = true
+                            
+                            OrionLib:MakeNotification({
+                                Name = "成功",
+                                Content = "已从 " .. player.Name .. " 的角色复制: " .. _G.ItemToCopy,
+                                Image = "rbxassetid://4483345998",
+                                Time = 5
+                            })
+                            break
+                        end
+                    end
+                end
+            end
+            
+            if not found then
+                OrionLib:MakeNotification({
+                    Name = "未找到",
+                    Content = "未找到道具: " .. _G.ItemToCopy,
+                    Image = "rbxassetid://4483345998",
+                    Time = 5
+                })
+            end
+        end)
+        
+        -- 错误处理
+        if not success then
+            OrionLib:MakeNotification({
+                Name = "错误",
+                Content = "复制道具时出错: " .. message,
+                Image = "rbxassetid://4483345998",
+                Time = 5
+            })
+        end
+    end    
+})
 
-
-
+-- 添加自动扫描功能
+TabGames:AddButton({
+    Name = "扫描所有玩家道具",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "扫描中",
+            Content = "正在扫描所有玩家道具...",
+            Image = "rbxassetid://4483345998",
+            Time = 3
+        })
+        
+        wait(1)
+        
+        local success, message = pcall(function()
+            local Players = game:GetService("Players")
+            local localPlayer = Players.LocalPlayer
+            local allItems = {}
+            
+            -- 遍历所有玩家
+            for _, player in pairs(Players:GetPlayers()) do
+                if player ~= localPlayer then
+                    -- 检查玩家背包
+                    if player:FindFirstChild("Backpack") then
+                        for _, item in pairs(player.Backpack:GetChildren()) do
+                            if (item:IsA("Tool") or item:IsA("HopperBin")) and not table.find(allItems, item.Name) then
+                                table.insert(allItems, item.Name)
+                            end
+                        end
+                    end
+                    
+                    -- 检查玩家角色手中的道具
+                    if player.Character then
+                        for _, item in pairs(player.Character:GetChildren()) do
+                            if (item:IsA("Tool") or item:IsA("HopperBin")) and not table.find(allItems, item.Name) then
+                                table.insert(allItems, item.Name)
+                            end
+                        end
+                    end
+                end
+            end
+            
+            if #allItems > 0 then
+                -- 创建下拉菜单显示所有找到的道具
+                TabGames:AddDropdown({
+                    Name = "可用道具列表",
+                    Default = allItems[1],
+                    Options = allItems,
+                    Callback = function(Value)
+                        _G.SelectedItemFromList = Value
+                    end    
+                })
+                
+                -- 添加复制选定道具的按钮
+                TabGames:AddButton({
+                    Name = "复制选定的道具",
+                    Callback = function()
+                        if not _G.SelectedItemFromList then
+                            OrionLib:MakeNotification({
+                                Name = "提示",
+                                Content = "请先选择一个道具",
+                                Image = "rbxassetid://4483345998",
+                                Time = 3
+                            })
+                            return
+                        end
+                        
+                        OrionLib:MakeNotification({
+                            Name = "复制中",
+                            Content = "正在复制: " .. _G.SelectedItemFromList,
+                            Image = "rbxassetid://4483345998",
+                            Time = 3
+                        })
+                        
+                        wait(0.5)
+                        
+                        local copySuccess, copyMessage = pcall(function()
+                            local Players = game:GetService("Players")
+                            local localPlayer = Players.LocalPlayer
+                            local found = false
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer then
+                                    -- 检查背包
+                                    if player:FindFirstChild("Backpack") then
+                                        local item = player.Backpack:FindFirstChild(_G.SelectedItemFromList)
+                                        if item then
+                                            local clone = item:Clone()
+                                            clone.Parent = localPlayer.Backpack
+                                            found = true
+                                            break
+                                        end
+                                    end
+                                    
+                                    -- 检查角色手中的道具
+                                    if not found and player.Character then
+                                        local item = player.Character:FindFirstChild(_G.SelectedItemFromList)
+                                        if item then
+                                            local clone = item:Clone()
+                                            clone.Parent = localPlayer.Backpack
+                                            found = true
+                                            break
+                                        end
+                                    end
+                                end
+                            end
+                            
+                            if found then
+                                OrionLib:MakeNotification({
+                                    Name = "成功",
+                                    Content = "已复制: " .. _G.SelectedItemFromList,
+                                    Image = "rbxassetid://4483345998",
+                                    Time = 5
+                                })
+                            else
+                                OrionLib:MakeNotification({
+                                    Name = "失败",
+                                    Content = "未能复制: " .. _G.SelectedItemFromList,
+                                    Image = "rbxassetid://4483345998",
+                                    Time = 5
+                                })
+                            end
+                        end)
+                        
+                        if not copySuccess then
+                            OrionLib:MakeNotification({
+                                Name = "错误",
+                                Content = "复制时出错: " .. copyMessage,
+                                Image = "rbxassetid://4483345998",
+                                Time = 5
+                            })
+                        end
+                    end    
+                })
+                
+                OrionLib:MakeNotification({
+                    Name = "扫描完成",
+                    Content = "找到 " .. #allItems .. " 种道具",
+                    Image = "rbxassetid://4483345998",
+                    Time = 5
+                })
+            else
+                OrionLib:MakeNotification({
+                    Name = "无道具",
+                    Content = "未找到任何可复制的道具",
+                    Image = "rbxassetid://4483345998",
+                    Time = 5
+                })
+            end
+        end)
+        
+        if not success then
+            OrionLib:MakeNotification({
+                Name = "错误",
+                Content = "扫描道具时出错: " .. message,
+                Image = "rbxassetid://4483345998",
+                Time = 5
+            })
+        end
+    end    
+})
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
