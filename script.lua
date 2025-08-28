@@ -605,19 +605,6 @@ Tab3:AddButton({
 })
 
 Tab3:AddButton({
-    Name = "MeMeZ嘿壳😱😱😱",
-    Callback = function()
-        OrionLib:MakeNotification({
-            Name = "加载中",
-            Content = "正在加载MeMeZ嘿壳脚本...",
-            Image = "rbxassetid://4483345998",
-            Time = 3
-        })
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/MeMeZLand/MeMeZ/refs/heads/main/ExploitLoader.lua"))()
-    end    
-})
-
-Tab3:AddButton({
     Name = "QuirkyCMD",
     Callback = function()
         OrionLib:MakeNotification({
