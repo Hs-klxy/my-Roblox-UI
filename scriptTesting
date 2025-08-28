@@ -70,12 +70,14 @@ TabGames:AddButton({
             Image = "rbxassetid://448345998",
             Time = 3
         })
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    local Players = game:GetService("Players")
-    local localPlayer = Players.LocalPlayer
-    local knife = ReplicatedStorage:FindFirstChild("刀")
-    local clone = knife:Clone()
-    clone.Parent = localPlayer.Backpack
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local Players = game:GetService("Players")
+        local localPlayer = Players.LocalPlayer
+        local knife = ReplicatedStorage:FindFirstChild("刀")
+        local clone = knife:Clone()
+        clone.Parent = localPlayer.Backpack
+   end    
+})
 
 TabGames:AddParagraph("🚪 Doors类", "这些是关于游戏《doors》的脚本")
 
